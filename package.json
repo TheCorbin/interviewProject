@@ -4,9 +4,16 @@
   "description": "An Ionic project",
   "devDependencies": {
     "@ionic/v1-toolkit": "^1.0.0",
+    "cordova-sqlite-storage": "git+https://github.com/brodysoft/Cordova-SQLitePlugin.git",
     "gulp": "^3.5.6",
     "gulp-clean-css": "^3.7.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^3.1.0"
+  },
+  "dependencies": {},
+  "cordova": {
+    "plugins": {
+      "cordova-sqlite-storage": {}
+    }
   }
 }
