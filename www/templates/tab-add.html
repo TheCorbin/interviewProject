@@ -1,0 +1,34 @@
+<ion-view view-title="Add">
+  <ion-content class="padding">
+
+    <form class="list" ng-controller="AddCtrl">
+
+      <div class="list list-inset">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">First Name</span>
+          <input type="text" placeholder="First Name" ng-model="person.first">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Last Name</span>
+          <input type="text" placeholder="Last Name" ng-model="person.last">
+        </label>
+        <label class="item item-input item-floating-label">
+          <ion-radio ng-model="person.choice" ng-value="'Male'">Male</ion-radio>
+          <ion-radio ng-model="person.choice" ng-value="'Female'">Female</ion-radio>
+          <ion-radio ng-model="person.choice" ng-value="'Other'">Other</ion-radio>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Birthdate</span>
+          <input type="date" placeholder="Birthdate" ng-model="person.birthDate">
+        </label>
+
+      </div>
+
+      <button class="button" type="submit" ng-click="insert()">
+        Submit
+      </button>
+
+  </form>
+
+  </ion-content>
+</ion-view>
