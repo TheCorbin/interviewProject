@@ -1,0 +1,16 @@
+<ion-view view-title="Users">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
+        <h2>{{user.firstName}} {{user.lastName}}</h2>
+        <p>{{user.sex}} || {{user.birthdate | dateConvert}}</span></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(user)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+    <button class="button button-full button-stable" ng-click="add()">Add</button>
+  </ion-content>
+</ion-view>

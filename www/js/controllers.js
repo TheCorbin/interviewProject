@@ -1,60 +1,55 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $cordovaSQLite) {})
+.controller('UserCtrl', function($scope, $filter, $ionicModal, Table) {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.Init = function () {
+    $scope.users = []
+    Table.getAll(new User().tableName).then(function (users) {
+      var temp = [];
+      angular.forEach(users, function (user) {
+        console.log('the user', user)
+        temp.push(new User(user));
+      })
+      console.log('the temp', temp)
+      $scope.users = temp
+    })
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+    $ionicModal.fromTemplateUrl('templates/user-detail.html', {
+      scope: $scope, animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.AddModal = modal;
+    });
+  }
+
+  $scope.remove = function (user) {
+    // Delete from Sqlite
+    Table.deleteById(new User().tableName, new User().keyFieldName, user.id).then(function (users) {
+      $scope.users.splice($scope.users.indexOf(user), 1);
+    });
   };
-})
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+  $scope.add = function () {
+    $scope.newUser = new User();
+    $scope.AddModal.show();
   };
-})
 
-.controller('ViewCtrl', function($scope, $cordovaSQLite) {
+  $scope.save = function () {
+    console.log('saving')
+    // Save to Sqlite database:
+    $scope.newUser.birthdate = $scope.newUser.birthdate.toString();
+    Table.create($scope.newUser).then(function (result) {
+      if (result) {
+        $scope.newUser.id = result.insertId;
+        $scope.users.push($scope.newUser);
+      }
+      $scope.AddModal.hide();
+    });
+  }
 
-  var query = "SELECT * FROM people";
-
-  $cordovaSQLite.execute($scope.db, query).then(function(res) {
-    var message = "INSERT ID -> " + res.insertId;
-    alert(message);
-  }, function (err) {
-    console.error(err);
-    alert(err);
-  });
-
-
+  $scope.Init();
 })
 
 .controller('AddCtrl', function($scope, $cordovaSQLite) {
 
-  $scope.insert = function( firstname, lastname, sex, birthdate) {
-    let person = $scope.person
-
-    var query = "INSERT INTO people (firstName, lastName, sex, birthDate) VALUES (?,?,?,?)";
-
-    $cordovaSQLite.execute($scope.db, query, [person.firstName, person.lastName, person.sex, person.birthDate]).then(function(res) {
-      var message = "INSERT ID -> " + res.insertId;
-      alert(message);
-    }, function (err) {
-      alert(err);
-    });
-  }
 
 })

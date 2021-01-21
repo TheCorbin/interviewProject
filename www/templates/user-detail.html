@@ -1,0 +1,43 @@
+<ion-modal-view>
+  <ion-content class="padding">
+    <div class='row'>
+        <div class='col'>
+            <span class='editor-label'>First Name</span>
+            <label class="item item-input">
+                <input type='text' ng-model="newUser.firstName"></input>
+            </label>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <span class='editor-label'>Last Name</span>
+            <label class="item item-input">
+                <input type='text' ng-model="newUser.lastName"></input>
+            </label>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <span class='editor-label'>Title</span>
+            <label class="item item-input">
+              <ion-radio ng-model="newUser.sex" ng-value="'Male'">Male</ion-radio>
+              <ion-radio ng-model="newUser.sex" ng-value="'Female'">Female</ion-radio>
+              <ion-radio ng-model="newUser.sex" ng-value="'Other'">Other</ion-radio>
+            </label>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <span class='editor-label'>Birthdate</span>
+            <label class="item item-input">
+                <input type='date' ng-model="temp" ng-change="newUser.birthdate=temp.toISOString()"></input>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center">
+            <button class="button button-full button-stable" ng-click="save()">Save</button>
+        </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

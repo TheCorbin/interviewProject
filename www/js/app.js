@@ -8,9 +8,9 @@
 
 var db = null
 
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'app.services'])
 
-.run(function($rootScope, $ionicPlatform, $cordovaSQLite) {
+.run(function($rootScope, $ionicPlatform, DB) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs).
@@ -27,26 +27,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       // remove the status bar on iOS or change it to use white instead of dark colors.
       StatusBar.styleDefault();
     }
-    db = $rootScope.db = $cordovaSQLite.openDB({
-        name: 'data.db',
-        location: 'default'
-      });
 
-
-    // ionic.Platform.ready(function() {
-    //   // db = window.sqlitePlugin.openDatabase({name: 'qpi.db', location: 'default'});
-    // })
-
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstName text, lastName text, sex text, birthDate text)").then(function(res) {
-      console.log('the res', res)
-    });
-
+    ionic.Platform.ready(function() {
+      DB.init();
+    })
   });
 })
 
-
-
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -63,27 +52,37 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
   // Each tab has its own nav history stack:
 
-  .state('tab.add', {
-    url: '/add',
+  .state('tab.users', {
+    url: '/users',
     views: {
-      'tab-add': {
-        templateUrl: 'templates/tab-add.html',
-        controller: 'AddCtrl'
+      'tab-users': {
+        templateUrl: 'templates/tab-user.html',
+        controller: 'UserCtrl'
       }
     }
   })
 
-  .state('tab.view', {
-    url: '/view',
+  .state('tab.user-detail', {
+    url: '/users/:Id',
     views: {
-      'tab-view': {
-        templateUrl: 'templates/tab-view.html',
-        controller: 'ViewCtrl'
+      'tab-user': {
+        templateUrl: 'templates/user-detail.html',
+        controller: 'UserDetailCtrl'
       }
     }
   })
+
+  .state('tab.extra', {
+    url: '/extra',
+    views: {
+      'tab-extra': {
+        templateUrl: 'templates/tab-extra.html',
+      }
+    }
+  })
+
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/add');
+  $urlRouterProvider.otherwise('/tab/users');
 
 });
