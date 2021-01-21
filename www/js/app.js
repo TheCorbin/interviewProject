@@ -6,8 +6,6 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var db = null
-
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'app.services'])
 
 .run(function($rootScope, $ionicPlatform, DB) {
