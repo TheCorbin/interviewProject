@@ -27,34 +27,34 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ViewCtrl', function($scope, People) {
-  console.log('test in View Ctrl')
+.controller('ViewCtrl', function($scope, $cordovaSQLite) {
+
+  var query = "SELECT * FROM people";
+
+  $cordovaSQLite.execute($scope.db, query).then(function(res) {
+    var message = "INSERT ID -> " + res.insertId;
+    alert(message);
+  }, function (err) {
+    console.error(err);
+    alert(err);
+  });
+
 
 })
 
 .controller('AddCtrl', function($scope, $cordovaSQLite) {
 
   $scope.insert = function( firstname, lastname, sex, birthdate) {
-    console.log('safety test');
-    console.log('the values!', $scope);
     let person = $scope.person
 
-    var query = "INSERT INTO people (firstname, lastname, sex, birthdate) VALUES (?,?,?,?,?)";
+    var query = "INSERT INTO people (firstName, lastName, sex, birthDate) VALUES (?,?,?,?)";
 
-    $cordovaSQLite.execute($scope.db, query, [person.firstname, person.lastname, person.sex, person.birthdate]).then(function(res) {
+    $cordovaSQLite.execute($scope.db, query, [person.firstName, person.lastName, person.sex, person.birthDate]).then(function(res) {
       var message = "INSERT ID -> " + res.insertId;
-      console.log(message);
       alert(message);
-  }, function (err) {
-      console.error(err);
+    }, function (err) {
       alert(err);
-  });
-
-    // window.sqlitePlugin.execute(db, query, [firstname, lastname]).then(function(res) {
-    //   console.log("INSERT ID -> " + res.insertId);
-    // }, function (err) {
-    //     console.error(err);
-    // });
+    });
   }
 
 })

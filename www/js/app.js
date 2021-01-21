@@ -5,7 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ionic.native', 'starter.controllers', 'starter.services'])
+
+var db = null
+
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
 
 .run(function($rootScope, $ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -24,14 +27,17 @@ angular.module('starter', ['ionic', 'ionic.native', 'starter.controllers', 'star
       // remove the status bar on iOS or change it to use white instead of dark colors.
       StatusBar.styleDefault();
     }
-
-    var db = $rootScope.db = $cordovaSQLite.openDB({
+    db = $rootScope.db = $cordovaSQLite.openDB({
         name: 'data.db',
         location: 'default'
       });
 
 
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text, sex text, birthDate text)").then(function(res) {
+    // ionic.Platform.ready(function() {
+    //   // db = window.sqlitePlugin.openDatabase({name: 'qpi.db', location: 'default'});
+    // })
+
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstName text, lastName text, sex text, birthDate text)").then(function(res) {
       console.log('the res', res)
     });
 
