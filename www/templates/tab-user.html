@@ -1,7 +1,14 @@
 <ion-view view-title="Users">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
+      <div class="button-bar" >
+        <a class="button" selected ng-click="sexFilter('Male')">Male</a>
+        <a class="button" ng-click="sexFilter('Female')">Female</a>
+        <a class="button" ng-click="sexFilter('Other')">Other</a>
+        <a class="button" ng-click="resetSexFilter()"> <i class="icon ion-close-circled"></i></a>
+      </div>
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in filteredUsers" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
         <h2>{{user.firstName}} {{user.lastName}}</h2>
         <p>{{user.sex}} || {{user.birthdate | dateConvert}}</span></p>
         <i class="icon ion-chevron-right icon-accessory"></i>

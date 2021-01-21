@@ -7,11 +7,10 @@ angular.module('starter.controllers', [])
     Table.getAll(new User().tableName).then(function (users) {
       var temp = [];
       angular.forEach(users, function (user) {
-        console.log('the user', user)
         temp.push(new User(user));
       })
-      console.log('the temp', temp)
       $scope.users = temp
+      $scope.filteredUsers = temp
     })
 
     $ionicModal.fromTemplateUrl('templates/user-detail.html', {
@@ -33,8 +32,21 @@ angular.module('starter.controllers', [])
     $scope.AddModal.show();
   };
 
+  $scope.sexFilter = function (choice) {
+    var temp = []
+    $scope.users.forEach( function (user) {
+      if (user.sex == choice) {
+        temp.push(user)
+      }
+    })
+    $scope.filteredUsers = temp;
+  }
+
+  $scope.resetSexFilter = function() {
+    $scope.filteredUsers = $scope.users;
+  }
+
   $scope.save = function () {
-    console.log('saving')
     // Save to Sqlite database:
     $scope.newUser.birthdate = $scope.newUser.birthdate.toString();
     Table.create($scope.newUser).then(function (result) {
