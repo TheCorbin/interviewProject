@@ -2,9 +2,9 @@
   <ion-content class="padding">
     <div class='row'>
         <div class='col'>
-            <span class='editor-label'>First Name</span>
+            <span class='editor-label'>First NameEDIT!</span>
             <label class="item item-input">
-                <input type='text' ng-model="newUser.firstName"></input>
+                <input type='text' ng-model="editUser.firstName"></input>
             </label>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class='col'>
             <span class='editor-label'>Last Name</span>
             <label class="item item-input">
-                <input type='text' ng-model="newUser.lastName"></input>
+                <input type='text' ng-model="editUser.lastName"></input>
             </label>
         </div>
     </div>
@@ -20,9 +20,9 @@
         <div class='col'>
             <span class='editor-label'>Title</span>
             <label class="item item-input">
-              <ion-radio ng-model="newUser.sex" ng-value="'Male'">Male</ion-radio>
-              <ion-radio ng-model="newUser.sex" ng-value="'Female'">Female</ion-radio>
-              <ion-radio ng-model="newUser.sex" ng-value="'Other'">Other</ion-radio>
+              <ion-radio ng-model="editUser.sex" ng-value="'Male'">Male</ion-radio>
+              <ion-radio ng-model="editUser.sex" ng-value="'Female'">Female</ion-radio>
+              <ion-radio ng-model="editUser.sex" ng-value="'Other'">Other</ion-radio>
             </label>
         </div>
     </div>
@@ -30,13 +30,13 @@
         <div class='col'>
             <span class='editor-label'>Birthdate</span>
             <label class="item item-input">
-                <input type='date' ng-model="temp" ng-change="newUser.birthdate=temp.toISOString()"></input>
+                <input type='date' value="editUser.bithdate" ng-model="temp" ng-change="editUser.birthdate=temp.toISOString()"></input>
             </label>
         </div>
     </div>
     <div class="row">
         <div class="col" style="text-align: center">
-            <button class="button button-full button-stable" ng-click="save()">Save</button>
+            <button class="button button-full button-stable" ng-click="saveEdit()">Save Edit</button>
         </div>
         <div class="col" style="text-align: center">
           <button class="button button-outline button-stable" ng-click="cancel()">Cancel</button>
