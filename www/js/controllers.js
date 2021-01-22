@@ -32,6 +32,7 @@ angular.module('starter.controllers', [])
     // Delete from Sqlite
     Table.deleteById(new User().tableName, new User().keyFieldName, user.id).then(function (users) {
       $scope.users.splice($scope.users.indexOf(user), 1);
+      $scope.calculateAges($scope.filteredUsers);
     });
   };
 
@@ -41,8 +42,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.edit = function(user) {
-    console.log('the user', user)
-    $scope.editUser = user;
     $scope.EditModal.show()
   }
 

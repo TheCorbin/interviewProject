@@ -18,15 +18,15 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
-    <ion-footer-bar style="padding-bottom: 3rem;">
-      <h1></h1>
-      <div class="row" >
-        <div class="col">Lowest: {{calculatedAges.lowest}}</div>
-        <div class="col">Highest: {{calculatedAges.highest}}</div>
-        <div class="col">Average: {{calculatedAges.average}}</div>
-      </div>
-    </ion-footer-bar>
 
     <button class="button button-full button-stable" ng-click="add()">Add</button>
   </ion-content>
+  <ion-footer-bar style="padding-bottom: 3rem;">
+    <h1></h1>
+    <div class="row" >
+      <div class="col">Lowest: {{calculatedAges.lowest}}</div>
+      <div class="col">Highest: {{calculatedAges.highest}}</div>
+      <div class="col">Average: {{calculatedAges.average}}</div>
+    </div>
+  </ion-footer-bar>
 </ion-view>
