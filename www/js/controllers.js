@@ -3,6 +3,7 @@ angular.module('starter.controllers', [])
 .controller('UserCtrl', function($scope, $filter, $ionicModal, Table) {
 
   $scope.Init = function () {
+    console.log('INIT!')
     $scope.users = []
     Table.getAll(new User().tableName).then(function (users) {
       var temp = [];
@@ -11,6 +12,7 @@ angular.module('starter.controllers', [])
       })
       $scope.users = temp
       $scope.filteredUsers = temp
+      $scope.calculateAges($scope.filteredUsers);
     })
 
     $ionicModal.fromTemplateUrl('templates/user-detail.html', {
@@ -74,6 +76,7 @@ angular.module('starter.controllers', [])
       if (result) {
         $scope.newUser.id = result.insertId;
         $scope.users.push($scope.newUser);
+        $scope.calculateAges($scope.filteredUsers);
       }
       $scope.AddModal.hide();
     });
@@ -81,12 +84,27 @@ angular.module('starter.controllers', [])
 
   $scope.cancel = function () {
     $scope.AddModal.hide();
+    $scope.EditModal.hide();
+  }
+
+  $scope.calculateAges = function(users) {
+    var tempAges = []
+    var lowestDays = 0;
+    var highestDays = 0;
+    var averageDays = 0;
+
+    users.forEach( function (user) {
+      var userBirthdate = new Date(user.birthdate);
+      var diff = Math.floor(( Date.now() - Date.parse(userBirthdate))/ 86400000);
+      tempAges.push(diff);
+    })
+
+    lowestDays = Math.min(...tempAges);
+    highestDays = Math.max(...tempAges);
+    averageDays = Math.floor(tempAges.reduce((a,b) => a + b, 0) / tempAges.length)
+
+    $scope.calculatedAges = {lowest: lowestDays, highest: highestDays, average: averageDays}
   }
 
   $scope.Init();
-})
-
-.controller('AddCtrl', function($scope, $cordovaSQLite) {
-
-
 })

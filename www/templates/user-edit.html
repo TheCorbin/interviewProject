@@ -30,7 +30,7 @@
         <div class='col'>
             <span class='editor-label'>Birthdate</span>
             <label class="item item-input">
-                <input type='date' value="editUser.bithdate" ng-model="temp" ng-change="editUser.birthdate=temp.toISOString()"></input>
+                <input type='date' max="maxDate.max" value="editUser.birthdate" ng-model="temp" ng-change="editUser.birthdate=temp.toISOString()"></input>
             </label>
         </div>
     </div>
