@@ -14,18 +14,6 @@ angular.module('starter.controllers', [])
       $scope.filteredUsers = temp
       $scope.calculateAges($scope.filteredUsers);
     })
-
-    $ionicModal.fromTemplateUrl('templates/user-detail.html', {
-      scope: $scope, animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.AddModal = modal;
-    });
-
-    $ionicModal.fromTemplateUrl('templates/user-edit.html', {
-      scope: $scope, animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.EditModal = modal;
-    });
   }
 
   $scope.remove = function (user) {
@@ -37,12 +25,55 @@ angular.module('starter.controllers', [])
   };
 
   $scope.add = function () {
+    $scope.maxDate = new Date().toJSON().split('T')[0];
     $scope.newUser = new User();
-    $scope.AddModal.show();
+
+    $ionicModal.fromTemplateUrl('templates/user-detail.html', {
+      scope: $scope, animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.AddModal = modal;
+      $scope.AddModal.show();
+    });
   };
 
   $scope.edit = function(user) {
-    $scope.EditModal.show()
+    $scope.maxDate = new Date().toJSON().split('T')[0];
+
+    console.log('the user', user)
+    $scope.editUser= user;
+    $scope.editUser.birthdate = new Date(user.birthdate).toISOString().slice(0, 10);
+    console.log('the birthdate', $scope.editUser.birthdate);
+
+    $ionicModal.fromTemplateUrl('templates/user-edit.html', {
+      scope: $scope, animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.EditModal = modal;
+      $scope.EditModal.show()
+    });
+  }
+
+  $scope.saveEdit = function () {
+    //Edit record
+    $scope.editUser.birthdate = $scope.editUser.birthdate.toString();
+
+    Table.update($scope.editUser).then(function (result) {
+      console.log('the result', result)
+    })
+    $scope.EditModal.hide();
+  }
+
+  $scope.save = function () {
+    // Save to Sqlite database:
+    $scope.newUser.birthdate = $scope.newUser.birthdate.toString();
+
+    Table.create($scope.newUser).then(function (result) {
+      if (result) {
+        $scope.newUser.id = result.insertId;
+        $scope.users.push($scope.newUser);
+        $scope.calculateAges($scope.filteredUsers);
+      }
+      $scope.AddModal.hide();
+    });
   }
 
   $scope.sexFilter = function (choice) {
@@ -59,30 +90,11 @@ angular.module('starter.controllers', [])
     $scope.filteredUsers = $scope.users;
   }
 
-  $scope.saveEdit = function () {
-    //Edit record
-    console.log('scope.editUser', $scope.editUser)
-    Table.update($scope.editUser).then(function (result) {
-      console.log('the result', result)
-    })
-    $scope.EditModal.hide();
-  }
-
-  $scope.save = function () {
-    // Save to Sqlite database:
-    $scope.newUser.birthdate = $scope.newUser.birthdate.toString();
-    Table.create($scope.newUser).then(function (result) {
-      if (result) {
-        $scope.newUser.id = result.insertId;
-        $scope.users.push($scope.newUser);
-        $scope.calculateAges($scope.filteredUsers);
-      }
-      $scope.AddModal.hide();
-    });
-  }
-
   $scope.cancel = function () {
     $scope.AddModal.hide();
+  }
+
+  $scope.editCancel = function () {
     $scope.EditModal.hide();
   }
 
@@ -102,8 +114,10 @@ angular.module('starter.controllers', [])
     highestDays = Math.max(...tempAges);
     averageDays = Math.floor(tempAges.reduce((a,b) => a + b, 0) / tempAges.length)
 
-    $scope.calculatedAges = {lowest: lowestDays, highest: highestDays, average: averageDays}
-  }
-
+    if (tempAges === []){
+      $scope.calculatedAges = {lowest: lowestDays, highest: highestDays, average: averageDays}
+    } else {
+      $scope.calculatedAges = {lowest: 0, highest: 0, average: 0}  }
+    }
   $scope.Init();
 })

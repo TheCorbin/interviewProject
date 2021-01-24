@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "@ionic-native/sqlite": "^5.30.0",
-    "ionic-native": "^2.9.0"
+    "ionic-native": "^2.9.0",
+    "moment": "^2.29.1"
   },
   "cordova": {
     "plugins": {

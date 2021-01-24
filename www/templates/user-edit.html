@@ -28,10 +28,11 @@
     </div>
     <div class='row'>
         <div class='col'>
+          <!-- {{user.birthdate | birthDateConvert}} -->
             <span class='editor-label'>Birthdate</span>
             <label class="item item-input">
-                <input type='date' max="maxDate.max" value="editUser.birthdate" ng-model="temp" ng-change="editUser.birthdate=temp.toISOString()"></input>
-            </label>
+                <input type="date" max="{{maxDate}}" ng-value="editUser.birthdate" ng-model="temp" ng-change="editUser.birthdate=temp.toISOString()"></input>
+              </label>
         </div>
     </div>
     <div class="row">
@@ -39,7 +40,7 @@
             <button class="button button-full button-stable" ng-click="saveEdit()">Save Edit</button>
         </div>
         <div class="col" style="text-align: center">
-          <button class="button button-outline button-stable" ng-click="cancel()">Cancel</button>
+          <button class="button button-outline button-stable" ng-click="editCancel()">Cancel</button>
         </div>
     </div>
   </ion-content>
