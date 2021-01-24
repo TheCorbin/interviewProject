@@ -7,6 +7,8 @@
         <a class="button" ng-click="sexFilter('Other')">Other</a>
         <a class="button" ng-click="resetSexFilter()"> <i class="icon ion-close-circled"></i></a>
       </div>
+      <div>Current Sex Choice: {{sexChoice}}</div>
+
 
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in filteredUsers" ng-click="edit(user)" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
         <h2>{{user.firstName}} {{user.lastName}}</h2>
@@ -21,12 +23,25 @@
 
     <button class="button button-full button-stable" ng-click="add()">Add</button>
   </ion-content>
-  <ion-footer-bar style="padding-bottom: 3rem;">
-    <h1></h1>
-    <div class="row" >
-      <div class="col">Lowest: {{calculatedAges.lowest}}</div>
-      <div class="col">Highest: {{calculatedAges.highest}}</div>
-      <div class="col">Average: {{calculatedAges.average}}</div>
-    </div>
+
+
+  <ion-footer-bar>
+    <h1>test</h1>
+  </ion-footer-bar>
+
+  <!-- Age Calculations -->
+  <ion-footer-bar align-title="left" style="padding-bottom: 8rem; width: 100%">
+    <ion-list class="i-no-border" style="width: 100%">
+      <ion-item>
+        <h3>User Age Data (In Days)</h3>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">Lowest: {{calculatedAges.lowest}}</div>
+          <div class="col">Highest: {{calculatedAges.highest}}</div>
+          <div class="col">Average: {{calculatedAges.average}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-footer-bar>
 </ion-view>
