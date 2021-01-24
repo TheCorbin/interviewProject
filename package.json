@@ -18,11 +18,7 @@
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^3.1.0"
   },
-  "dependencies": {
-    "@ionic-native/sqlite": "^5.30.0",
-    "ionic-native": "^2.9.0",
-    "moment": "^2.29.1"
-  },
+  "dependencies": {},
   "cordova": {
     "plugins": {
       "cordova-sqlite-storage": {},
