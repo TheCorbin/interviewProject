@@ -7,6 +7,8 @@
         <a class="button" ng-click="sexFilter('Other')">Other</a>
         <a class="button" ng-click="resetSexFilter()"> <i class="icon ion-close-circled"></i></a>
       </div>
+      <div>Current Sex Choice: {{sexChoice}}</div>
+
 
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in filteredUsers" ng-click="edit(user)" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
         <h2>{{user.firstName}} {{user.lastName}}</h2>

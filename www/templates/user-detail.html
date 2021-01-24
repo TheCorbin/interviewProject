@@ -18,12 +18,17 @@
     </div>
     <div class='row'>
         <div class='col'>
-            <span class='editor-label'>Title</span>
-            <label class="item item-input">
+            <!-- <span class='editor-label'>Sex</span> -->
+            <ion-radio-group>
+              <ion-list-header>
+                <ion-label>
+                  Sex
+                </ion-label>
+              </ion-list-header>
               <ion-radio ng-model="newUser.sex" ng-value="'Male'">Male</ion-radio>
               <ion-radio ng-model="newUser.sex" ng-value="'Female'">Female</ion-radio>
               <ion-radio ng-model="newUser.sex" ng-value="'Other'">Other</ion-radio>
-            </label>
+            </ion-radio-group>
         </div>
     </div>
     <div class='row'>
